@@ -6,6 +6,7 @@ MSYS2のダウンロードから64bit版Emacs26.3のビルドまでをサポー�
 
   * 既存の環境を汚すことなくEmacs26.3のビルドができます。
   * IMEパッチを適用します。
+  * cmigemo-moduleを組み込みます。
   * Emacs26.3関連ファイルをまとめたZIPファイルを作成します。
 
 Emacsのインストールは行いません。ZIPファイルを展開すればEmacsを使えるようになります。
@@ -66,6 +67,14 @@ Emacs 26.2以降は公式ビルドでもIME経由でのインライン入力が�
 ```
 
 となります。公式ビルドとの違いは、`--with-modules`を加えているのと、`CFLAGS`に`-g3`を付けないことです。また、`make install-strip`を使います。これより、ビルドしたEmacsのファイルはデバッグ情報が付加されないものとなります。
+
+## cmigemo-moduleについて
+
+デフォルト設定のとき、rzl24oziさんの[cmigemo-module](https://github.com/rzl24ozi/cmigemo-module)をダウンロードして、ビルドします。ZIPファイルにはcmigemo-module関連ファイルも含まれています。MELPAから`migemo.el`をインストールし、`init.el`に次の一行を書き加えてEmacsを起動すれば、migemoのインクリメンタル検索ができます。
+
+``` emacs-lisp
+(load-library "cmigemo")
+```
 
 ## ImageMagickについて
 

@@ -5,8 +5,8 @@ title Build Helper for Emacs 64bit on Windows
 pushd %WORKDIR%
 
 :7ZEXE
-if exist 7z.exe goto 7ZDLL
 title Download 7z.exe
+if exist 7z.exe goto 7ZDLL
 call wgetfile https://sevenzip.osdn.jp/howto/9.20/7z.exe %WORKDIR%\7z.exe
 if not exist 7z.exe goto 7ZEXE
 

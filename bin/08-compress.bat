@@ -26,10 +26,20 @@ robocopy msys64\mingw64\share\info %DESTINATION%\share\info dir *.info %ROBOCOPY
 robocopy msys64\mingw64\share\man\man1 %DESTINATION%\share\man\man1 %MANFILES% %ROBOCOPYOPTIONS%
 robocopy msys64\mingw64\share\metainfo %DESTINATION%\share\metainfo %ROBOCOPYOPTIONS%
 
+:: for cmigemo-module
+if exist %EMACS_VER%\modules\cmigemo-module-master\cmigemo-module.dll (
+7z x cmigemo-module-master.zip *\*.el -o%DESTINATION%\share\emacs\%EMACS_VER:~6%\site-lisp -y
+robocopy %EMACS_VER%\modules\cmigemo-module-master %DESTINATION%\share\emacs\%EMACS_VER:~6%\site-lisp\cmigemo-module-master cmigemo-module.dll %ROBOCOPYOPTIONS%
+robocopy msys64\usr\local\share\migemo %DESTINATION%\share\emacs\%EMACS_VER:~6%\etc\migemo %ROBOCOPYOPTIONS%
+robocopy msys64\usr\local\bin %DESTINATION%\bin migemo.dll %ROBOCOPYOPTIONS%
+robocopy msys64\usr\local\include %DESTINATION%\include migemo.h %ROBOCOPYOPTIONS%
+robocopy msys64\usr\local\lib %DESTINATION%\lib libmigemo.dll.a %ROBOCOPYOPTIONS%
+copy /y msys64\usr\local\doc\migemo\README_j.txt %DESTINATION%\share\emacs\%EMACS_VER:~6%\etc\migemo_README_j.txt
+)
+
 if not defined IMAGEMAGICK_VER goto ZIP
 
 set IMAGEMAGICKFILES=libgomp-*.dll libMagickCore-*.dll libMagickWand-*.dll
-robocopy msys64\mingw64\bin %DESTINATION%\bin %BINFILES% %IMAGEMAGICKFILES% %ROBOCOPYOPTIONS%
 
 :ZIP
 if not exist %DESTINATION% goto END

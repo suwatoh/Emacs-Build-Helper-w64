@@ -19,6 +19,11 @@ set IMEPATCHLEVEL=1
 :: ImageMagickのバージョン（機能しないので未定義のままにしてください）
 set IMAGEMAGICK_VER=
 
+:: cmigemo-moduleのURL（未定義の場合はcmigemoをemacsに組み込みません）
+set CMIGEMOMODULEURL=https://github.com/rzl24ozi/cmigemo-module
+set CMIGEMOURL=https://github.com/koron/cmigemo
+set QKCURL=http://hp.vector.co.jp/authors/VA000501/qkcc100.zip
+
 :: Emacsのビルドオプション
 :: （IMAGEMAGICK_VERが未定義でない場合はEMACSBUILDPARAMSに--with-imagemagickが追加される）
 set EMACSCFLAGS=-O2 -static
