@@ -5,19 +5,16 @@ set WORKDIR=%TEMP%\Emacs-Build-Helper
 set OUTPUTDIR=%USERPROFILE%\Desktop
 
 :: MSYS2
-set MSYSINSTALLER=msys2-base-x86_64-20190524.tar.xz
+set MSYSINSTALLER=msys2-base-x86_64-20200903.tar.xz
 
 :: Emacsバージョン
-set EMACS_VER=emacs-26.3
+set EMACS_VER=emacs-27.1
 
 :: IMEパッチのURL（未定義の場合はIMEパッチを適用しません）
-set IMEPATCHURL=https://raw.githubusercontent.com/msnoigrs/emacs-on-windows-patches/master/00-emacs-26.3-w32-ime.patch
+REM set IMEPATCHURL=https://raw.githubusercontent.com/mhatta/emacs-27-x86_64-win-ime/master/emacs-27.1-windows-ime-20200914.patch
 
 :: IMEパッチのpオプションに付ける数字
 set IMEPATCHLEVEL=1
-
-:: ImageMagickのバージョン（機能しないので未定義のままにしてください）
-set IMAGEMAGICK_VER=
 
 :: cmigemo-moduleのURL（未定義の場合はcmigemoをemacsに組み込みません）
 set CMIGEMOMODULEURL=https://github.com/rzl24ozi/cmigemo-module
@@ -25,16 +22,18 @@ set CMIGEMOURL=https://github.com/koron/cmigemo
 set QKCURL=http://hp.vector.co.jp/authors/VA000501/qkcc100.zip
 
 :: Emacsのビルドオプション
-:: （IMAGEMAGICK_VERが未定義でない場合はEMACSBUILDPARAMSに--with-imagemagickが追加される）
 set EMACSCFLAGS=-O2 -static
 set EMACSLDFLAGS=
-set EMACSBUILDPARAMS=--without-dbus --host=x86_64-w64-mingw32 --without-compress-install --with-modules
+set EMACSBUILDPARAMS=--without-dbus --host=x86_64-w64-mingw32 --without-compress-install
 
 :: makeのジョブ数
 set /a MAKEJOBS=NUMBER_OF_PROCESSORS/2
 
 :: インストール（未定義にしないこと）
 set MAKE_INSTALL=make install-strip
+
+:: srcのコピー先（未定義の場合はコピーしません）
+set EMACSSRCDIR=
 
 :: クリーンアップ
 set CLEANUP=yes

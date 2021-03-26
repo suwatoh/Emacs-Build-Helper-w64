@@ -34,9 +34,9 @@ call msys2_shell %MSYS2SHELLPARAMS% -c "%MSYS2SHELLEND%"
 :: MSYS2アップグレード
 cls
 echo 別ウィンドウが開きます。インストールの確認に「Y」と入力してください。
-echo 警告: terminate MSYS2 without returning to shell and check for updates again
-echo 警告: for example close your terminal window instead of calling exit
-echo のようなメッセージが出たら別ウィンドウを Alt+F4 で閉じてください。
+echo.
+echo 更新を完了するために、この端末を含む全ての MSYS2 プロセスが閉じられます。続行しますか？ [Y/n]
+echo のようなメッセージが出たら「Y」と入力して別ウィンドウを閉じてください。
 call msys2_shell %MINTTYPARAMS% -c "pacman -Syuu"
 
 :STANDBYFORMINTTY

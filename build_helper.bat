@@ -47,11 +47,11 @@ if exist %~dp0bin\01-download-emacs-src.bat call %~dp0bin\01-download-emacs-src.
 rem IMEパッチの適用
 if exist %~dp0bin\02-ime-patch.bat call %~dp0bin\02-ime-patch.bat
 
+rem Emacsをビルド
+if exist %~dp0bin\03-build-emacs.bat call %~dp0bin\03-build-emacs.bat
+
 rem cmigemo-moduleの追加
 if exist %~dp0bin\06-cmigemo-module.bat call %~dp0bin\06-cmigemo-module.bat
-
-rem Emacsをビルド
-if exist %~dp0bin\07-build-emacs.bat call %~dp0bin\07-build-emacs.bat
 
 rem 関連ファイルの抽出
 if exist %~dp0bin\08-compress.bat call %~dp0bin\08-compress.bat

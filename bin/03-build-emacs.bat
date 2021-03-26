@@ -2,8 +2,6 @@
 setlocal ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
 title Build Helper for Emacs 64bit on Windows
 
-if defined IMAGEMAGICK_VER set EMACSBUILDPARAMS=%EMACSBUILDPARAMS% --with-imagemagick
-
 pushd %WORKDIR%\msys64
 
 if defined EMACSCFLAGS (set EMACSCFLAGS=CFLAGS='%EMACSCFLAGS%') else (set EMACSCFLAGS= )
