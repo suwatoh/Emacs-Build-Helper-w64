@@ -12,4 +12,5 @@ mingw-w64-x86_64-lcms2 \
 mingw-w64-x86_64-jansson \
 mingw-w64-x86_64-libxml2 \
 mingw-w64-x86_64-gnutls \
-mingw-w64-x86_64-zlib
+mingw-w64-x86_64-zlib \
+mingw-w64-x86_64-harfbuzz

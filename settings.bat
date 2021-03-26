@@ -5,10 +5,10 @@ set WORKDIR=%TEMP%\Emacs-Build-Helper
 set OUTPUTDIR=%USERPROFILE%\Desktop
 
 :: MSYS2
-set MSYSINSTALLER=msys2-base-x86_64-20200903.tar.xz
+set MSYSINSTALLER=msys2-base-x86_64-20210228.tar.xz
 
 :: Emacsバージョン
-set EMACS_VER=emacs-27.1
+set EMACS_VER=emacs-27.2
 
 :: IMEパッチのURL（未定義の場合はIMEパッチを適用しません）
 REM set IMEPATCHURL=https://raw.githubusercontent.com/mhatta/emacs-27-x86_64-win-ime/master/emacs-27.1-windows-ime-20200914.patch
