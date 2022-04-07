@@ -1,12 +1,12 @@
-# Windows用64bit版Emacs27.2のビルドを支援するツール
+# Windows用64bit版Emacs28.1のビルドを支援するツール
 
 ## 概要
 
-MSYS2のダウンロードから64bit版Emacs27.2のビルドまでをサポートするツールです。主な特色は次のとおりです。
+MSYS2のダウンロードから64bit版Emacs28.1のビルドまでをサポートするツールです。主な特色は次のとおりです。
 
-  * 既存の環境を汚すことなくEmacs27.2のビルドができます。
+  * 既存の環境を汚すことなくEmacs28.1のビルドができます。
   * cmigemo-moduleを組み込みます。
-  * Emacs27.2関連ファイルのみをまとめたZIPファイルを作成します。
+  * Emacs28.1関連ファイルのみをまとめたZIPファイルを作成します。
 
 Emacsのインストールは行いません。ZIPファイルを展開すればEmacsを使えるようになります。
 
@@ -14,7 +14,7 @@ Emacsのインストールは行いません。ZIPファイルを展開すれば
 
 ### 1. 動作環境
 
-  * OS: Windows 10 64bit
+  * OS: Windows 10 64bit以降
   * ハードディスク: 4GB以上の空き容量
   * ネットワーク環境: インターネットに接続する環境。プロキシ経由の場合には対応していません。
 
@@ -28,11 +28,11 @@ Emacsのインストールは行いません。ZIPファイルを展開すれば
 
 `build_helper.bat`を実行してください。直ちにMSYS2のファイルがダウンロードされ、MSYS2/MinGWの更新が始まります。いくつか確認のための入力を要求されますが、すべて<kbd>Enter</kbd>の入力でよいです。
 
-Emacsのビルド完了まで（通信環境やマシンスペックによりますが）1時間程度かかります。気長に待ちましょう。
+Emacsのビルド完了まで（通信環境やマシンスペックによりますが）30分程度かかります。気長に待ちましょう。
 
 ### 4. ZIPファイルの作成
 
-ビルド完了後、デスクトップに`emacs-27.2-x86_64-ime-日付.zip`のような名前のファイルが作成されます。IMEパッチが適用されていないときには、ファイル名に`-ime`は付きません。
+ビルド完了後、デスクトップに`emacs-28.1-x86_64-ime-日付.zip`のような名前のファイルが作成されます。IMEパッチが適用されていないときには、ファイル名に`-ime`は付きません。
 
 ZIPファイルにはEmacs関連ファイルとEmacsソースツリーのsrc/内のファイルのみ含まれます。公式ビルドにはEmacsの動作に直接には関係しないMSYS2/MinGWのファイルが多数含まれる一方、src/内のファイルは含まれていません。`EMACSSRCDIR`の設定を未定義にするとZIPファイルにsrc/内のファイルが含まれなくなります。
 
@@ -45,7 +45,7 @@ ZIPファイルにはEmacs関連ファイルとEmacsソースツリーのsrc/内
 変数`system-configuration-features`の値は
 
 ``` text
-"XPM JPEG TIFF GIF PNG RSVG SOUND NOTIFY ACL GNUTLS LIBXML2 ZLIB TOOLKIT_SCROLL_BARS MODULES THREADS LCMS2 W32_IME"
+"ACL GIF GMP GNUTLS HARFBUZZ JPEG JSON LCMS2 LIBXML2 MODULES NOTIFY W32NOTIFY PDUMPER PNG RSVG SOUND THREADS TIFF TOOLKIT_SCROLL_BARS XPM ZLIB"
 ```
 
 となります。
@@ -53,7 +53,7 @@ ZIPファイルにはEmacs関連ファイルとEmacsソースツリーのsrc/内
 変数`system-configuration-options`の値は
 
 ``` text
-"--without-dbus --host=x86_64-w64-mingw32 --without-compress-install --with-modules 'CFLAGS=-O2 -static'"
+"--without-dbus --host=x86_64-w64-mingw32 'CFLAGS=-O3 -march=native -static'"
 ```
 
 となります。また、`make install-strip`を使います。これより、ビルドしたEmacsのファイルはデバッグ情報が付加されないものとなります。

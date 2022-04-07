@@ -5,10 +5,10 @@ set WORKDIR=%TEMP%\Emacs-Build-Helper
 set OUTPUTDIR=%USERPROFILE%\Desktop
 
 :: MSYS2
-set MSYSINSTALLER=msys2-base-x86_64-20210228.tar.xz
+set MSYSINSTALLER=msys2-base-x86_64-20220319.tar.xz
 
 :: Emacsバージョン
-set EMACS_VER=emacs-27.2
+set EMACS_VER=emacs-28.1
 
 :: IMEパッチのURL（未定義の場合はIMEパッチを適用しません）
 REM set IMEPATCHURL=https://raw.githubusercontent.com/mhatta/emacs-27-x86_64-win-ime/master/emacs-27.1-windows-ime-20200914.patch
@@ -22,12 +22,12 @@ set CMIGEMOURL=https://github.com/koron/cmigemo
 set QKCURL=http://hp.vector.co.jp/authors/VA000501/qkcc100.zip
 
 :: Emacsのビルドオプション
-set EMACSCFLAGS=-O2 -static
+set EMACSCFLAGS=-O3 -march=native -static
 set EMACSLDFLAGS=
-set EMACSBUILDPARAMS=--without-dbus --host=x86_64-w64-mingw32 --without-compress-install
+set EMACSBUILDPARAMS=--without-dbus --host=x86_64-w64-mingw32
 
 :: makeのジョブ数
-set /a MAKEJOBS=NUMBER_OF_PROCESSORS/2
+set /a MAKEJOBS=NUMBER_OF_PROCESSORS
 
 :: インストール（未定義にしないこと）
 set MAKE_INSTALL=make install-strip
@@ -37,6 +37,7 @@ set EMACSSRCDIR=
 
 :: クリーンアップ
 set CLEANUP=yes
+rem set CLEANUP=no
 
 set MSYS2SYSTEM=mingw64
 set MSYS2SHELLPARAMS=-%MSYS2SYSTEM% -defterm -where %WORKDIR% -no-start

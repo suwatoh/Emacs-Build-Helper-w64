@@ -8,6 +8,7 @@ mingw-w64-x86_64-giflib \
 mingw-w64-x86_64-libpng \
 mingw-w64-x86_64-libjpeg-turbo \
 mingw-w64-x86_64-librsvg \
+mingw-w64-x86_64-libwebp \
 mingw-w64-x86_64-lcms2 \
 mingw-w64-x86_64-jansson \
 mingw-w64-x86_64-libxml2 \

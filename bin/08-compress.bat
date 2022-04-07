@@ -6,9 +6,22 @@ pushd %WORKDIR%
 
 set DESTINATION=%WORKDIR%\cab\%EMACS_VER%
 
-set BINFILES=addpm.exe ctags.exe ebrowse.exe emacs-*.exe emacs.exe emacsclient.exe emacsclientw.exe etags.exe runemacs.exe
+:: 参考
+:: Windows上のEmacsでSVG画像内のimage要素が表示されない問題
+:: https://misohena.jp/blog/2022-04-06-emacs-on-windows-doesnt-show-image-elements-in-svg.html
 
-set DLLFILES=libXpm-noX4.dll libbz2-*.dll libcairo-?.dll libcroco-*.dll libexpat-*.dll libffi-*.dll libfontconfig-*.dll libfreetype-*.dll libfribidi-*.dll libgcc_s_seh-*.dll libgdk_pixbuf-*.dll libgif-*.dll libgio-*.dll libglib-*.dll libgmodule-*.dll libgmp-*.dll libgnutls-*.dll libgobject-*.dll libgraphite2.dll libharfbuzz-?.dll libhogweed-*.dll libiconv-*.dll libidn2-*.dll libintl-*.dll libjansson-*.dll libjpeg-*.dll liblcms2-*.dll liblzma-*.dll libnettle-*.dll libp11-kit-*.dll libpango-*.dll libpangocairo-*.dll libpangoft2-*.dll libpangowin32-*.dll libpcre-*.dll libpixman-?-*.dll libpng16-*.dll librsvg-?-*.dll libstdc++-*.dll libtasn1-*.dll libtiff-*.dll libunistring-*.dll libwinpthread-*.dll libxml2-*.dll zlib1.dll
+echo "%EMACSCFLAGS%" | %SystemRoot%\system32\find "-static" >NUL
+if not ERRORLEVEL 1 goto STATIC
+
+set DLLFILES=libbrotlicommon.dll libbrotlidec.dll libbz2-*.dll libcairo-?.dll libcairo-gobject-*.dll libdatrie-*.dll libdeflate.dll libexpat-*.dll libffi-*.dll libfontconfig-*.dll libfreetype-*.dll libfribidi-*.dll libgcc_s_seh-*.dll libgdk_pixbuf-*.dll libgif-*.dll libgio-*.dll libglib-*.dll libgmodule-*.dll libgmp-*.dll libgmpxx-*.dll libgnutls-*.dll libgnutls-openssl-*.dll libgobject-*.dll libgraphite2.dll libharfbuzz-*.dll libhogweed-*.dll libiconv-*.dll libidn2-*.dll libintl-*.dll libjansson-*.dll libjbig-*.dll libjpeg-*.dll liblcms2-*.dll libLerc.dll liblzma-*.dll libnettle-*.dll libp11-kit-*.dll libpango-*.dll libpangocairo-*.dll libpangoft2-*.dll libpangowin32-*.dll libpcre-*.dll libpixman-?-*.dll libpng16-*.dll librsvg-?-*.dll libstdc++-*.dll libtasn1-*.dll libthai-*.dll libtiff-*.dll libtiffxx-*.dll libturbojpeg.dll libunistring-*.dll libwebp-*.dll libwinpthread-*.dll libxml2-*.dll libXpm-noX4.dll libzstd.dll zlib1.dll
+
+goto MAIN
+
+:STATIC
+set DLLFILES=libwinpthread-*.dll
+
+:MAIN
+set BINFILES=addpm.exe ctags.exe ebrowse.exe emacs-*.exe emacs.exe emacsclient.exe emacsclientw.exe etags.exe gdk-pixbuf-query-loaders.exe runemacs.exe
 
 set MANFILES=ctags.1 ebrowse.1 emacs.1 emacsclient.1 etags.1
 
@@ -17,14 +30,16 @@ set ROBOCOPYOPTIONS=/s /ns /nc /nfl /ndl /np /njh /njs
 if exist %DESTINATION% rd /s /q %DESTINATION%
 robocopy msys64\mingw64\bin %DESTINATION%\bin %BINFILES% %DLLFILES% %ROBOCOPYOPTIONS%
 robocopy msys64\mingw64\include %DESTINATION%\include emacs-module.h %ROBOCOPYOPTIONS%
-REM robocopy msys64\mingw64\lib\systemd\user %DESTINATION%\lib\systemd\user emacs.service %ROBOCOPYOPTIONS%
+for /d %%D in (msys64\mingw64\lib\emacs*) do robocopy %%D %DESTINATION%\lib\emacs %ROBOCOPYOPTIONS%
+robocopy msys64\mingw64\lib\systemd\user %DESTINATION%\lib\systemd\user emacs.service %ROBOCOPYOPTIONS%
+for /d %%D in (msys64\mingw64\lib\gdk-pixbuf-*) do robocopy msys64\mingw64\lib\%%~nxD %DESTINATION%\lib\%%~nxD %ROBOCOPYOPTIONS%
 robocopy msys64\mingw64\libexec\emacs %DESTINATION%\libexec\emacs %ROBOCOPYOPTIONS%
-REM robocopy msys64\mingw64\share\applications %DESTINATION%\share\applications %ROBOCOPYOPTIONS%
+robocopy msys64\mingw64\share\applications %DESTINATION%\share\applications %ROBOCOPYOPTIONS%
 robocopy msys64\mingw64\share\emacs %DESTINATION%\share\emacs %ROBOCOPYOPTIONS%
 robocopy msys64\mingw64\share\icons %DESTINATION%\share\icons %ROBOCOPYOPTIONS%
 robocopy msys64\mingw64\share\info %DESTINATION%\share\info dir *.info %ROBOCOPYOPTIONS%
 robocopy msys64\mingw64\share\man\man1 %DESTINATION%\share\man\man1 %MANFILES% %ROBOCOPYOPTIONS%
-REM robocopy msys64\mingw64\share\metainfo %DESTINATION%\share\metainfo %ROBOCOPYOPTIONS%
+robocopy msys64\mingw64\share\metainfo %DESTINATION%\share\metainfo %ROBOCOPYOPTIONS%
 
 :: add src
 if defined EMACSSRCDIR (robocopy %EMACS_VER%\src %DESTINATION%\%EMACSSRCDIR% %ROBOCOPYOPTIONS%)
