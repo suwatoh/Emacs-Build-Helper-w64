@@ -1,12 +1,12 @@
-# Windows用64bit版Emacs28.1のビルドを支援するツール
+# Windows用64bit版Emacs29.1のビルドを支援するツール
 
 ## 概要
 
-MSYS2のダウンロードから64bit版Emacs28.1のビルドまでをサポートするツールです。主な特色は次のとおりです。
+MSYS2のダウンロードから64bit版Emacs29.1のビルドまでをサポートするツールです。主な特色は次のとおりです。
 
-  * 既存の環境を汚すことなくEmacs28.1のビルドができます。
+  * 既存の環境を汚すことなくEmacs29.1のビルドができます。
   * cmigemo-moduleを組み込みます。
-  * Emacs28.1関連ファイルのみをまとめたZIPファイルを作成します。
+  * Emacs29.1関連ファイルのみをまとめたZIPファイルを作成します。
 
 Emacsのインストールは行いません。ZIPファイルを展開すればEmacsを使えるようになります。
 
@@ -32,7 +32,7 @@ Emacsのビルド完了まで（通信環境やマシンスペックによりま
 
 ### 4. ZIPファイルの作成
 
-ビルド完了後、デスクトップに`emacs-28.1-x86_64-ime-日付.zip`のような名前のファイルが作成されます。IMEパッチが適用されていないときには、ファイル名に`-ime`は付きません。
+ビルド完了後、デスクトップに`emacs-29.1-x86_64-ime-日付.zip`のような名前のファイルが作成されます。IMEパッチが適用されていないときには、ファイル名に`-ime`は付きません。
 
 ZIPファイルにはEmacs関連ファイルとEmacsソースツリーのsrc/内のファイルのみ含まれます。公式ビルドにはEmacsの動作に直接には関係しないMSYS2/MinGWのファイルが多数含まれる一方、src/内のファイルは含まれていません。`EMACSSRCDIR`の設定を未定義にするとZIPファイルにsrc/内のファイルが含まれなくなります。
 
@@ -45,7 +45,7 @@ ZIPファイルにはEmacs関連ファイルとEmacsソースツリーのsrc/内
 変数`system-configuration-features`の値は
 
 ``` text
-"ACL GIF GMP GNUTLS HARFBUZZ JPEG JSON LCMS2 LIBXML2 MODULES NOTIFY W32NOTIFY PDUMPER PNG RSVG SOUND THREADS TIFF TOOLKIT_SCROLL_BARS XPM ZLIB"
+"ACL GIF GMP GNUTLS HARFBUZZ JPEG JSON LCMS2 LIBXML2 MODULES NOTIFY W32NOTIFY PDUMPER PNG RSVG SOUND SQLITE3 THREADS TIFF TOOLKIT_SCROLL_BARS TREE_SITTER WEBP XPM ZLIB"
 ```
 
 となります。
