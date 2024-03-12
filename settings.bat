@@ -5,12 +5,12 @@ set WORKDIR=%TEMP%\Emacs-Build-Helper
 set OUTPUTDIR=%USERPROFILE%\Desktop
 
 :: MSYS2
-set MSYSINSTALLER=msys2-base-x86_64-20230718.tar.xz
+set MSYSINSTALLER=msys2-base-x86_64-20240113.tar.xz
 
 :: Emacsバージョン
-set EMACS_VER=emacs-29.1
+set EMACS_VER=emacs-29.2
 
-:: IMEパッチのURL（未定義の場合はIMEパッチを適用しません）
+:: 【非推奨】IMEパッチのURL（未定義の場合はIMEパッチを適用しません）
 REM set IMEPATCHURL=https://raw.githubusercontent.com/mhatta/emacs-27-x86_64-win-ime/master/emacs-27.1-windows-ime-20200914.patch
 
 :: IMEパッチのpオプションに付ける数字
@@ -21,7 +21,7 @@ set CMIGEMOMODULEURL=https://github.com/rzl24ozi/cmigemo-module
 set CMIGEMOURL=https://github.com/koron/cmigemo
 set QKCURL=http://hp.vector.co.jp/authors/VA000501/qkcc100.zip
 
-:: Emacsのビルドオプション
+:: Emacsのビルドオプション（-staticオプション必須）
 set EMACSCFLAGS=-O3 -march=native -static
 set EMACSLDFLAGS=
 set EMACSBUILDPARAMS=--without-dbus --host=x86_64-w64-mingw32

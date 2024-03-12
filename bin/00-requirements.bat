@@ -7,13 +7,13 @@ pushd %WORKDIR%
 :7ZEXE
 title Download 7z.exe
 if exist 7z.exe goto 7ZDLL
-call wgetfile https://sevenzip.osdn.jp/howto/9.20/7z.exe %WORKDIR%\7z.exe
+call wgetfile https://7-zip.opensource.jp/howto/9.20/7z.exe %WORKDIR%\7z.exe
 if not exist 7z.exe goto 7ZEXE
 
 :7ZDLL
 if exist 7z.dll goto MSYS2
 title Download 7z.dll
-call wgetfile https://sevenzip.osdn.jp/howto/9.20/7z.dll %WORKDIR%\7z.dll
+call wgetfile https://7-zip.opensource.jp/howto/9.20/7z.dll %WORKDIR%\7z.dll
 if not exist 7z.dll goto 7ZDLL
 
 :MSYS2

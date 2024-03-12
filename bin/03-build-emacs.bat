@@ -4,7 +4,13 @@ title Build Helper for Emacs 64bit on Windows
 
 pushd %WORKDIR%\msys64
 
-if defined EMACSCFLAGS (set EMACSCFLAGS=CFLAGS='%EMACSCFLAGS%') else (set EMACSCFLAGS= )
+if not defined EMACSCFLAGS goto BUILD
+
+echo "%EMACSCFLAGS%" | %SystemRoot%\system32\find "-static" >NUL
+if ERRORLEVEL 1 (set EMACSCFLAGS=%EMACSCFLAGS% -static)
+set EMACSCFLAGS=CFLAGS='%EMACSCFLAGS%'
+
+:BUILD
 if defined EMACSLDFLAGS (set EMACSLDFLAGS=LDFLAGS='%EMACSLDFLAGS%') else (set EMACSLDFLAGS= )
 
 set EMACSBUILD="cd %EMACS_VER%; ./autogen.sh; %EMACSCFLAGS% %EMACSLDFLAGS% ./configure %EMACSBUILDPARAMS%; make -j%MAKEJOBS%; %MAKE_INSTALL%; %MSYS2SHELLEND%"
