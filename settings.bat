@@ -8,7 +8,7 @@ set OUTPUTDIR=%USERPROFILE%\Desktop
 set MSYSINSTALLER=msys2-base-x86_64-20240113.tar.xz
 
 :: Emacsバージョン
-set EMACS_VER=emacs-29.2
+set EMACS_VER=emacs-29.3
 
 :: 【非推奨】IMEパッチのURL（未定義の場合はIMEパッチを適用しません）
 REM set IMEPATCHURL=https://raw.githubusercontent.com/mhatta/emacs-27-x86_64-win-ime/master/emacs-27.1-windows-ime-20200914.patch
