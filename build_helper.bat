@@ -23,39 +23,49 @@ exit
 
 :: 作業ディレクトリを準備
 if not exist %WORKDIR% goto MAKEWORKDIR
+
 :FORCEDEL
 cls
 set /p FORCEDEL="作業フォルダは既に存在します。削除してよいですか？[Y/n] "
-if /i "%FORCEDEL%"=="Y" (rd /s /q %WORKDIR% & goto MAKEWORKDIR)
-if "%FORCEDEL%"=="" (rd /s /q %WORKDIR% & goto MAKEWORKDIR)
+if /i "%FORCEDEL%"=="Y" goto DELWORKDIR
+if    "%FORCEDEL%"==""  goto DELWORKDIR
 if /i "%FORCEDEL%"=="N" goto MAIN
 goto FORCEDEL
+
+:DELWORKDIR
+rd /s /q %WORKDIR%
 
 :MAKEWORKDIR
 md %WORKDIR%
 
 :MAIN
-if not exist %WORKDIR%\needed-packages.sh copy /y utils\needed-packages.sh %WORKDIR%\ >NUL
-if not exist %WORKDIR%\wgetfile.bat copy /y utils\wgetfile.* %WORKDIR%\ >NUL
+:: precheck.*以外を作業フォルダにコピー
+for %%I in (utils\*) do if /i %%~nI neq precheck copy /y %%I %WORKDIR%\ >NUL
 
-rem 7z・MSYS2・ビルドに必要なパッケージを用意
-if exist %~dp0bin\00-requirements.bat call %~dp0bin\00-requirements.bat
+:: 7z・MSYS2・ビルドに必要なパッケージを用意
+call :EXECIF %~dp0bin\01-requirements.bat
 
-rem ソースファイルのダウンロード
-if exist %~dp0bin\01-download-emacs-src.bat call %~dp0bin\01-download-emacs-src.bat
+:: ソースファイルのダウンロード
+call :EXECIF %~dp0bin\02-download-emacs-src.bat
 
-rem IMEパッチの適用
-if exist %~dp0bin\02-ime-patch.bat call %~dp0bin\02-ime-patch.bat
+:: Emacsをビルド
+call :EXECIF %~dp0bin\03-build-emacs.bat
 
-rem Emacsをビルド
-if exist %~dp0bin\03-build-emacs.bat call %~dp0bin\03-build-emacs.bat
+:: cmigemo-moduleの追加
+call :EXECIF %~dp0bin\04-cmigemo-module.bat
 
-rem cmigemo-moduleの追加
-if exist %~dp0bin\06-cmigemo-module.bat call %~dp0bin\06-cmigemo-module.bat
-
-rem 関連ファイルの抽出
-if exist %~dp0bin\08-compress.bat call %~dp0bin\08-compress.bat
+:: 関連ファイルの抽出
+call :EXECIF %~dp0bin\05-compress.bat
 
 cd %~dp0
 
 if "%CLEANUP%"=="yes" (echo Cleanup... & rd /s /q %WORKDIR%)
+
+goto :EOF
+
+
+::------------------------------------------------------------------------------------
+:EXECIF
+if exist %1 call %1
+goto :EOF
+::------------------------------------------------------------------------------------
